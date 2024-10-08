@@ -1,4 +1,4 @@
-db.collectionname("collection");
+db.createCollection("mongoo");
 
 // query to insert one document 
 db.query.insertOne({item:"biscuit",qty:50,size:{h:20,w:25}});
@@ -51,3 +51,23 @@ db.query.deleteOne({_id:ObjectId('670423aed44824e410ee6352')});
 db.query.deleteMany({qty:{$gt: 30}});
 db.query.deleteMany({status: "unpack"});
 db.query.deleteMany({});
+
+
+db.createCollection("students",{validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["name", "age"],
+      properties: {
+        name: {
+          bsonType: "string",
+          description: "Name must be a string and is required"
+        },
+        age: {
+          bsonType: "int",
+          minimum: 0,
+          description: "Age must be a non-negative integer and is required"
+        }
+      }
+    }
+  }
+});
